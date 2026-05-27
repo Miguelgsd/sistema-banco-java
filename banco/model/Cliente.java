@@ -8,4 +8,28 @@ public class Cliente {
 		this.cpf = cpf;
 		this.telefone = telefone;
 	}
+
+	public void setNome(String nome){
+		this.nome = nome;
+	}
+
+	public String getNome(){
+		return this.nome;
+	}
+
+	public void setCpf(String cpf){
+		this.cpf = cpf;
+	}
+
+	public String getCpf(){
+		return this.cpf;
+	}
+
+	public void setTelefone(String telefone){
+		this.telefone = telefone;
+	}
+
+	public String getTelefone(){
+		return this.telefone;
+	}
 }
