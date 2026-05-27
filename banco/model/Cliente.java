@@ -32,4 +32,8 @@ public class Cliente {
 	public String getTelefone(){
 		return this.telefone;
 	}
+
+	public String toString(){
+		
+	}
 }
