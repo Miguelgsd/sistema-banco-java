@@ -1,3 +1,5 @@
+package banco.model;
+
 public class Cliente {
 	private String nome;
 	private String cpf;
@@ -34,6 +36,6 @@ public class Cliente {
 	}
 
 	public String toString(){
-		
+
 	}
 }
