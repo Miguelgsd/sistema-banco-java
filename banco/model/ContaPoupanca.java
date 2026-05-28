@@ -1,3 +1,5 @@
+package banco.model;
+
 public class ContaPoupanca extends ContaBancaria {
     private double taxaRendimentoMensal;
 

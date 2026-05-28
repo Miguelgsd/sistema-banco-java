@@ -46,7 +46,9 @@ public class ContaCorrente extends ContaBancaria {
     public double getLimite(){
         return this.limiteChequEspecial;
     }
-    public void gerarExtrato(){
+
+    @Override
+    abstract void gerarExtrato(){
         JOptionPane.showMessageDialog(null, "-------- Extrato -----------\n\nTitular: " + getTitular() + "\nNúmeroda conta: " + getNumeroConta() + "\nSaldo: " getSaldo() + "\nLimite especial: " + getLimite() + "\nHistórico: \n" + getHistorico(), "Extrato da Conta", JOptionPane.INFORMATION_MESSAGE);
     }
 }
