@@ -3,8 +3,9 @@ package banco.model;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
+import banco.interfaces.Operavel;
 
-public abstract class ContaBancaria {
+public abstract class ContaBancaria implements Operavel {
     private String numeroConta;
     private Cliente titular;
     private double saldo;
@@ -23,14 +24,16 @@ public abstract class ContaBancaria {
         this.historico.add(horario + " - Valor depositado: " + valor);
     }
 
-    public void sacar(double valor){
-        if(this.saldo <= valor){
+    public boolean sacar(double valor){
+        if(this.saldo >= valor){
             String horario = LocalDateTime.now().toString();
             this.saldo -= valor;
             this.historico.add(horario + " - Valor retirado: " + valor);
+            return true;
         } else {
-            JOptionPane.showMessageDialog(null, "Saldo insuficiente. Verifique seu saldo e tente novamente", "Erro", JOptionPane.ERROR_MESSAGE); 
-            }
+            JOptionPane.showMessageDialog(null, "Saldo insuficiente. Verifique seu saldo e tente novamente", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
     }
 
     public void exibirSaldo(){
@@ -62,29 +65,29 @@ public abstract class ContaBancaria {
         return this.numeroConta;
     }
 
-    public void setTitular(String titular){
+    public void setTitular(Cliente titular){
         this.titular = titular;
     }
 
-    public String getTitular(){
+    public Cliente getTitular(){
         return this.titular;
     }
 
-    public void setSaldo(String saldo){
+    public void setSaldo(double saldo){
         this.saldo = saldo;
     }
 
-    public String getSaldo(){
+    public double getSaldo(){
         return this.saldo;
     }
 
-    public void setHistorico(String historico){
+    public void setHistorico(ArrayList<String> historico){
         this.historico = historico;
     }
 
-    public String getHistorico(){
+    public ArrayList<String> getHistorico(){
         return this.historico;
     }
 
-    abstract void gerarExtrato();
+    public abstract void gerarExtrato();
 }

@@ -1,24 +1,34 @@
 package banco.model;
 
+import javax.swing.JOptionPane;
+
 public class ContaPoupanca extends ContaBancaria {
     private double taxaRendimentoMensal;
 
-    public ContaPoupanca(String numeroConta, String titular, double saldoInicial, double taxa){
+    public ContaPoupanca(String numeroConta, Cliente titular, double saldoInicial, double taxa){
         super(numeroConta, titular, saldoInicial);
         this.taxaRendimentoMensal = taxa;
     }
 
     public double calcularRendimento(){
-        return this.saldo * this.taxaRendimentoMensal;
+        return getSaldo() * this.taxaRendimentoMensal;
     }
 
     public void aplicarRendimento(){
-        this.saldo += this.saldo * this.taxaRendimentoMensal;
-        this.historico.add("Rendimento aplicado ao saldo.");
+        double rendimento = calcularRendimento();
+        setSaldo(getSaldo() + rendimento);
+        registrarTransacao("Rendimento aplicado ao saldo: " + rendimento);
     }
 
     @Override
-    abstract void gerarExtrato(){
-        JOptionPane.showMessageDialog(null, "--------- Extrato ----------\n\n" + "Titular: " + getTitular() + "\nNúmero: " + getNumeroConta() + "\nSaldo" + getSaldo() + "\nTaxa de rendimento: " + this.taxaRendimentoMensal + "\nRendimento estimado: " + "\nHistórico: \n" + getHistorico());
+    public void gerarExtrato(){
+        String titularNome;
+        if (getTitular() != null) {
+            titularNome = getTitular().getNome();
+        } else {
+            titularNome = "Não definido";
+        }
+
+        JOptionPane.showMessageDialog(null, "--------- Extrato ----------\n\n" + "Titular: " + titularNome + "\nNúmero: " + getNumeroConta() + "\nSaldo: " + getSaldo() + "\nTaxa de rendimento: " + this.taxaRendimentoMensal + "\nRendimento estimado: " + calcularRendimento() + "\nHistórico: \n" + getHistorico(), "Extrato da Poupança", JOptionPane.INFORMATION_MESSAGE);
     }
 }

@@ -5,23 +5,31 @@ import javax.swing.JOptionPane;
 public class ContaCorrente extends ContaBancaria {
     private double limiteChequEspecial;
 
-    public ContaCorrente(String numeroConta, String titular, double saldoInicial, double limite){
-        super(numeroConta, titular, saldoInicial)
+    public ContaCorrente(String numeroConta, Cliente titular, double saldoInicial, double limite){
+        super(numeroConta, titular, saldoInicial);
         this.limiteChequEspecial = limite;
     }
 
     @Override
-    public void sacar(double valor){
-        if(valor > this.saldoInicial){
-            this.historico.add("Cheque especial em uso.");
-            if(valor <= this.limiteChequEspecial){
-                this.saldoInicial -= valor;
-                this.limiteChequEspecial += this.saldoInicial;
-                this.saldoInicial = 0.0;
-                JOptionPane.showMessageDialog(null, "Você está utilizando seu cheque especial", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+    public boolean sacar(double valor){
+        double saldoAtual = getSaldo();
+        double limiteDisponivel = saldoAtual + this.limiteChequEspecial;
+
+        if(valor <= limiteDisponivel){
+            if(valor <= saldoAtual){
+                setSaldo(saldoAtual - valor);
+                registrarTransacao("Valor retirado: " + valor);
             } else {
-                this.saldoInicial -= valor;
+                double usadoCheque = valor - saldoAtual;
+                setSaldo(0.0);
+                this.limiteChequEspecial -= usadoCheque;
+                registrarTransacao("Valor retirado: " + valor + " (cheque especial usado: " + usadoCheque + ")");
+                JOptionPane.showMessageDialog(null, "Você está utilizando seu cheque especial", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             }
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Saldo e limite insuficientes para realizar o saque", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
     }
 
@@ -38,9 +46,11 @@ public class ContaCorrente extends ContaBancaria {
         StringBuilder history = new StringBuilder();
         history.append("--------- Histórico ---------\n\n");
 
-        for(String evento : this.historico){
+        for(String evento : getHistorico()){
             history.append(evento).append("\n");
         }
+
+        JOptionPane.showMessageDialog(null, history.toString(), "Histórico da Conta Corrente", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public double getLimite(){
@@ -48,7 +58,7 @@ public class ContaCorrente extends ContaBancaria {
     }
 
     @Override
-    abstract void gerarExtrato(){
-        JOptionPane.showMessageDialog(null, "-------- Extrato -----------\n\nTitular: " + getTitular() + "\nNúmeroda conta: " + getNumeroConta() + "\nSaldo: " getSaldo() + "\nLimite especial: " + getLimite() + "\nHistórico: \n" + getHistorico(), "Extrato da Conta", JOptionPane.INFORMATION_MESSAGE);
+    public void gerarExtrato(){
+        JOptionPane.showMessageDialog(null, "-------- Extrato -----------\n\nTitular: " + getTitular() + "\nNúmero da conta: " + getNumeroConta() + "\nSaldo: " + getSaldo() + "\nLimite especial: " + getLimite() + "\nHistórico: \n" + getHistorico(), "\nExtrato da Conta: ", JOptionPane.INFORMATION_MESSAGE);
     }
 }
