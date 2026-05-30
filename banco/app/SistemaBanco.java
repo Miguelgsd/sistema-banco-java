@@ -80,7 +80,12 @@ public class SistemaBanco {
                     break;
 
                 case 6:
+                    busca = JOptionPane.showInputDialog("Digite o número da conta:");
+                    contaAuxiliar = banco.buscarConta(busca);
 
+                    if(contaAuxiliar != null){
+                        contaAuxiliar.gerarExtrato();
+                    }
                     break;
 
                 case 7:

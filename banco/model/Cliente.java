@@ -36,6 +36,6 @@ public class Cliente {
 	}
 
 	public String toString(){
-		return "Nome: " + this.nome + ". CPF: " + this.cpf + ". Telefone: " + this.telefone;
+		return "Nome: " + this.nome + ".\nCPF: " + this.cpf + ".\nTelefone: " + this.telefone + "\n";
 	}
 }

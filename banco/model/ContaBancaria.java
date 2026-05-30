@@ -43,7 +43,7 @@ public abstract class ContaBancaria implements Operavel {
 
     protected void registrarTransacao(String descricao){
         String horario = LocalDateTime.now().toString();
-        this.historico.add(horario + " - " + descricao);
+        this.historico.add(horario + " - " + descricao + "\n");
     }
 
     public void exibirHistorico(){
