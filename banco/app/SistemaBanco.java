@@ -49,18 +49,25 @@ public class SistemaBanco {
                     break;
                 
                 case 3:
-                    String numeroConta = JOptionPane.showInputDialog("Digite o número da conta:");
-                    ContaBancaria conta = banco.buscarConta(numeroConta);
+                    String numeroContaDeposito = JOptionPane.showInputDialog("Digite o número da conta:");
+                    ContaBancaria contaDeposito = banco.buscarConta(numeroContaDeposito);
                     
-                    if (conta != null) {
+                    if (contaDeposito != null) {
                         double valor = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor a depositar:"));
-                        conta.depositar(valor);
+                        contaDeposito.depositar(valor);
                         JOptionPane.showMessageDialog(null, "Depósito realizado com sucesso!");
                     }
                     break;
 
                 case 4:
-
+                    String numeroContaSaque = JOptionPane.showInputDialog("Digite o número da conta:");
+                    ContaBancaria contaSaque = banco.buscarConta(numeroContaSaque);
+                    
+                    if (contaSaque != null) {
+                        double valor = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor para sacar:"));
+                        contaSaque.sacar(valor);
+                        JOptionPane.showMessageDialog(null, "Saque realizado com sucesso!");
+                    }
                     break;
 
                 case 5:
