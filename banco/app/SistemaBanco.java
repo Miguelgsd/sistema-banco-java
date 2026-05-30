@@ -9,6 +9,7 @@ import banco.service.BancoService;
 public class SistemaBanco {
     public static void main(String[] args){
         int opcao = -1;
+        Cliente cliente = null;
         do{
             String menu = "---------- SISTEMA BANCÁRIO ----------\n" + "\n1 - Cadastrar conta corrente" + "\n2 - Cadastrar conta poupança\n" + "3 - Depositar\n" + "4 - Sacar\n" + "5 - Consultar saldo\n" + "6 - Exibir extrato da conta\n" + "7 - Exibir histórico de transações\n" + "8 - Listar todas as contas\n" + "9 - Relatório geral do banco\n" + "0 - Encerrar sistema";
             String entrada = JOptionPane.showInputDialog(menu);
@@ -17,18 +18,29 @@ public class SistemaBanco {
 
             switch(opcao){
                 case 1:
-                    String nome = JOptionPane.showInputDialog("Insira seu nome completo:");
-                    String cpf = JOptionPane.showInputDialog("Insira seu CPF: ");
-                    String telefone = JOptionPane.showInputDialog("Insira seu telefone: ");
-                    Cliente cliente = new Cliente(nome, cpf, telefone);
+                    if(cliente == null){
+                        String nome = JOptionPane.showInputDialog("Insira seu nome completo:");
+                        String cpf = JOptionPane.showInputDialog("Insira seu CPF: ");
+                        String telefone = JOptionPane.showInputDialog("Insira seu telefone: ");
+                        cliente = new Cliente(nome, cpf, telefone);
+                    }
 
-                    String numero = JOptionPane.showInputDialog("Crie um número para a sua conta: ");
-                    ContaCorrente conta = new ContaCorrente(numero, cliente, 0.0, 500.0);
+                    String numeroC = JOptionPane.showInputDialog("Crie um número para a sua conta: ");
+                    ContaCorrente contaC = new ContaCorrente(numeroC, cliente, 0.0, 500.0);
                     JOptionPane.showMessageDialog(null, "Conta criada com sucesso.", "Operação realizada", JOptionPane.INFORMATION_MESSAGE);
                     break;
                 
                 case 2:
+                    if(cliente == null){
+                        String nome = JOptionPane.showInputDialog("Insira seu nome completo:");
+                        String cpf = JOptionPane.showInputDialog("Insira seu CPF: ");
+                        String telefone = JOptionPane.showInputDialog("Insira seu telefone: ");
+                        cliente = new Cliente(nome, cpf, telefone);
+                    }
 
+                    String numeroP = JOptionPane.showInputDialog("Crie um número para a conta: ");
+
+                    ContaPoupanca contaP = new ContaPoupanca(numeroP, cliente, 0.0, 0.01);
                     break;
                 
                 case 3:
@@ -57,6 +69,9 @@ public class SistemaBanco {
 
                 case 9:
 
+                    break;
+
+                case 0:
                     break;
 
                 default:
