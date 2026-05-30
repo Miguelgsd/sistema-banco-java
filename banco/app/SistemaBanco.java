@@ -89,11 +89,14 @@ public class SistemaBanco {
                     break;
 
                 case 7:
+                    busca = JOptionPane.showInputDialog("Digite o número da conta:");
+                    contaAuxiliar = banco.buscarConta(busca);
 
+                    contaAuxiliar.exibirHistorico();
                     break;
 
                 case 8:
-
+                    
                     break;
 
                 case 9:
