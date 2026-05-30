@@ -35,7 +35,7 @@ public class Cliente {
 		return this.telefone;
 	}
 
-	/*public String toString(){
-
-	}*/
+	public String toString(){
+		return "Nome: " + this.nome + ". CPF: " + this.cpf + ". Telefone: " + this.telefone;
+	}
 }
