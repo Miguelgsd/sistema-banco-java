@@ -18,6 +18,7 @@ public class SistemaBanco {
 
             opcao = Integer.parseInt(entrada);
 
+            String busca;
             switch(opcao){
                 case 1:
                     if(cliente == null){
@@ -49,8 +50,8 @@ public class SistemaBanco {
                     break;
                 
                 case 3:
-                    String numeroContaDeposito = JOptionPane.showInputDialog("Digite o número da conta:");
-                    ContaBancaria contaDeposito = banco.buscarConta(numeroContaDeposito);
+                    busca = JOptionPane.showInputDialog("Digite o número da conta:");
+                    ContaBancaria contaDeposito = banco.buscarConta(busca);
                     
                     if (contaDeposito != null) {
                         double valor = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor a depositar:"));
@@ -60,8 +61,8 @@ public class SistemaBanco {
                     break;
 
                 case 4:
-                    String numeroContaSaque = JOptionPane.showInputDialog("Digite o número da conta:");
-                    ContaBancaria contaSaque = banco.buscarConta(numeroContaSaque);
+                    busca = JOptionPane.showInputDialog("Digite o número da conta:");
+                    ContaBancaria contaSaque = banco.buscarConta(busca);
                     
                     if (contaSaque != null) {
                         double valor = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor para sacar:"));
