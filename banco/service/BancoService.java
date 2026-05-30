@@ -25,6 +25,7 @@ public class BancoService {
     }
 
     public ContaBancaria buscarConta(String numeroConta){
+
         for(ContaCorrente conta : contasCorrentes){
             if(conta.getNumeroConta().equals(numeroConta)){
                 JOptionPane.showMessageDialog(null, "Conta encontrada!", "Info", JOptionPane.INFORMATION_MESSAGE);
@@ -38,7 +39,7 @@ public class BancoService {
                 return conta;
             }
         }
-
+        
         JOptionPane.showMessageDialog(null, "Conta não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);
         return null;
     }

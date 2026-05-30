@@ -5,11 +5,13 @@ import banco.model.Cliente;
 import banco.model.ContaCorrente;
 import banco.model.ContaPoupanca;
 import banco.service.BancoService;
+import banco.model.ContaBancaria;
 
 public class SistemaBanco {
     public static void main(String[] args){
         int opcao = -1;
         Cliente cliente = null;
+        BancoService banco = new BancoService();
         do{
             String menu = "---------- SISTEMA BANCÁRIO ----------\n" + "\n1 - Cadastrar conta corrente" + "\n2 - Cadastrar conta poupança\n" + "3 - Depositar\n" + "4 - Sacar\n" + "5 - Consultar saldo\n" + "6 - Exibir extrato da conta\n" + "7 - Exibir histórico de transações\n" + "8 - Listar todas as contas\n" + "9 - Relatório geral do banco\n" + "0 - Encerrar sistema";
             String entrada = JOptionPane.showInputDialog(menu);
@@ -27,6 +29,7 @@ public class SistemaBanco {
 
                     String numeroC = JOptionPane.showInputDialog("Crie um número para a sua conta: ");
                     ContaCorrente contaC = new ContaCorrente(numeroC, cliente, 0.0, 500.0);
+                    banco.cadastrarContaCorrente(contaC);
                     JOptionPane.showMessageDialog(null, "Conta criada com sucesso.", "Operação realizada", JOptionPane.INFORMATION_MESSAGE);
                     break;
                 
@@ -41,10 +44,19 @@ public class SistemaBanco {
                     String numeroP = JOptionPane.showInputDialog("Crie um número para a conta: ");
 
                     ContaPoupanca contaP = new ContaPoupanca(numeroP, cliente, 0.0, 0.01);
+                    banco.cadastrarContaPoupanca(contaP);
+                    JOptionPane.showMessageDialog(null, "Conta criada com sucesso.", "Operação realizada", JOptionPane.INFORMATION_MESSAGE);
                     break;
                 
                 case 3:
-
+                    String numeroConta = JOptionPane.showInputDialog("Digite o número da conta:");
+                    ContaBancaria conta = banco.buscarConta(numeroConta);
+                    
+                    if (conta != null) {
+                        double valor = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor a depositar:"));
+                        conta.depositar(valor);
+                        JOptionPane.showMessageDialog(null, "Depósito realizado com sucesso!");
+                    }
                     break;
 
                 case 4:
