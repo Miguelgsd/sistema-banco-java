@@ -19,6 +19,7 @@ public class SistemaBanco {
             opcao = Integer.parseInt(entrada);
 
             String busca;
+            ContaBancaria contaAuxiliar;
             switch(opcao){
                 case 1:
                     if(cliente == null){
@@ -51,28 +52,31 @@ public class SistemaBanco {
                 
                 case 3:
                     busca = JOptionPane.showInputDialog("Digite o número da conta:");
-                    ContaBancaria contaDeposito = banco.buscarConta(busca);
+                    contaAuxiliar = banco.buscarConta(busca);
                     
-                    if (contaDeposito != null) {
+                    if (contaAuxiliar != null) {
                         double valor = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor a depositar:"));
-                        contaDeposito.depositar(valor);
+                        contaAuxiliar.depositar(valor);
                         JOptionPane.showMessageDialog(null, "Depósito realizado com sucesso!");
                     }
                     break;
 
                 case 4:
                     busca = JOptionPane.showInputDialog("Digite o número da conta:");
-                    ContaBancaria contaSaque = banco.buscarConta(busca);
+                    contaAuxiliar = banco.buscarConta(busca);
                     
-                    if (contaSaque != null) {
+                    if (contaAuxiliar != null) {
                         double valor = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor para sacar:"));
-                        contaSaque.sacar(valor);
+                        contaAuxiliar.sacar(valor);
                         JOptionPane.showMessageDialog(null, "Saque realizado com sucesso!");
                     }
                     break;
 
                 case 5:
+                    busca = JOptionPane.showInputDialog("Digite o número da conta:");
+                    contaAuxiliar = banco.buscarConta(busca);
 
+                    JOptionPane.showMessageDialog(null, "Saldo disponível: R$" + contaAuxiliar.getSaldo(), "Saldo Bancário", JOptionPane.INFORMATION_MESSAGE);
                     break;
 
                 case 6:
