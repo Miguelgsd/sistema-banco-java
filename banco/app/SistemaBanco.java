@@ -20,34 +20,54 @@ public class SistemaBanco {
 
             String busca;
             ContaBancaria contaAuxiliar;
+            String regexCpf = "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}";
             switch(opcao){
                 case 1:
                     if(cliente == null){
                         String nome = JOptionPane.showInputDialog("Insira seu nome completo:");
                         String cpf = JOptionPane.showInputDialog("Insira seu CPF: ");
+                        if(!cpf.matches(regexCpf)){
+                            JOptionPane.showMessageDialog(null, "CPF inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+                            break;
+                        }
                         String telefone = JOptionPane.showInputDialog("Insira seu telefone: ");
                         cliente = new Cliente(nome, cpf, telefone);
                     }
 
                     String numeroC = JOptionPane.showInputDialog("Crie um número para a sua conta: ");
-                    ContaCorrente contaC = new ContaCorrente(numeroC, cliente, 0.0, 500.0);
-                    banco.cadastrarContaCorrente(contaC);
-                    JOptionPane.showMessageDialog(null, "Conta criada com sucesso.", "Operação realizada", JOptionPane.INFORMATION_MESSAGE);
+                    ContaBancaria existenteC = banco.buscarConta(numeroC);
+
+                    if(existenteC != null){
+                        JOptionPane.showMessageDialog(null, "Já existe uma conta com este número. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        ContaCorrente contaC = new ContaCorrente(numeroC, cliente, 0.0, 500.0);
+                        banco.cadastrarContaCorrente(contaC);
+                        JOptionPane.showMessageDialog(null, "Conta criada com sucesso.", "Operação realizada", JOptionPane.INFORMATION_MESSAGE);
+                    }
                     break;
                 
                 case 2:
                     if(cliente == null){
                         String nome = JOptionPane.showInputDialog("Insira seu nome completo:");
                         String cpf = JOptionPane.showInputDialog("Insira seu CPF: ");
+                        if(!cpf.matches(regexCpf)){
+                            JOptionPane.showMessageDialog(null, "CPF inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+                            break;
+                        }
                         String telefone = JOptionPane.showInputDialog("Insira seu telefone: ");
                         cliente = new Cliente(nome, cpf, telefone);
                     }
 
                     String numeroP = JOptionPane.showInputDialog("Crie um número para a conta: ");
+                    ContaBancaria existenteP = banco.buscarConta(numeroP);
 
-                    ContaPoupanca contaP = new ContaPoupanca(numeroP, cliente, 0.0, 0.01);
-                    banco.cadastrarContaPoupanca(contaP);
-                    JOptionPane.showMessageDialog(null, "Conta criada com sucesso.", "Operação realizada", JOptionPane.INFORMATION_MESSAGE);
+                    if(existenteP != null){
+                        JOptionPane.showMessageDialog(null, "Já existe uma conta com este número. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        ContaPoupanca contaP = new ContaPoupanca(numeroP, cliente, 0.0, 0.01);
+                        banco.cadastrarContaPoupanca(contaP);
+                        JOptionPane.showMessageDialog(null, "Conta criada com sucesso.", "Operação realizada", JOptionPane.INFORMATION_MESSAGE);
+                    }
                     break;
                 
                 case 3:
@@ -58,7 +78,7 @@ public class SistemaBanco {
                         double valor = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor a depositar:"));
                         contaAuxiliar.depositar(valor);
                         JOptionPane.showMessageDialog(null, "Depósito realizado com sucesso!");
-                    }
+                    } else {JOptionPane.showMessageDialog(null, "Conta não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);}
                     break;
 
                 case 4:
@@ -69,14 +89,16 @@ public class SistemaBanco {
                         double valor = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor para sacar:"));
                         contaAuxiliar.sacar(valor);
                         JOptionPane.showMessageDialog(null, "Saque realizado com sucesso!");
-                    }
+                    } else {JOptionPane.showMessageDialog(null, "Conta não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);}
                     break;
 
                 case 5:
                     busca = JOptionPane.showInputDialog("Digite o número da conta:");
                     contaAuxiliar = banco.buscarConta(busca);
 
-                    JOptionPane.showMessageDialog(null, "Saldo disponível: R$" + contaAuxiliar.getSaldo(), "Saldo Bancário", JOptionPane.INFORMATION_MESSAGE);
+                    if(contaAuxiliar != null){
+                        JOptionPane.showMessageDialog(null, "Saldo disponível: R$" + String.format("%.2f", contaAuxiliar.getSaldo()), "Saldo Bancário", JOptionPane.INFORMATION_MESSAGE);
+                    } else {JOptionPane.showMessageDialog(null, "Conta não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);}                    
                     break;
 
                 case 6:
@@ -85,22 +107,24 @@ public class SistemaBanco {
 
                     if(contaAuxiliar != null){
                         contaAuxiliar.gerarExtrato();
-                    }
+                    } else {JOptionPane.showMessageDialog(null, "Conta não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);}
                     break;
 
                 case 7:
                     busca = JOptionPane.showInputDialog("Digite o número da conta:");
                     contaAuxiliar = banco.buscarConta(busca);
 
+                    if(contaAuxiliar != null){
                     contaAuxiliar.exibirHistorico();
+                    } else {JOptionPane.showMessageDialog(null, "Conta não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);}
                     break;
 
                 case 8:
-                    
+                    banco.listarTodasAsContas();
                     break;
 
                 case 9:
-
+                    banco.exibirRelatorioGeral();
                     break;
 
                 case 0:

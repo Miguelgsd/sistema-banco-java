@@ -28,19 +28,16 @@ public class BancoService {
 
         for(ContaCorrente conta : contasCorrentes){
             if(conta.getNumeroConta().equals(numeroConta)){
-                JOptionPane.showMessageDialog(null, "Conta encontrada!", "Info", JOptionPane.INFORMATION_MESSAGE);
                 return conta;
             }
         }
 
         for(ContaPoupanca conta : contasPoupanca){
             if(conta.getNumeroConta().equals(numeroConta)){
-                JOptionPane.showMessageDialog(null, "Conta encontrada!", "Info", JOptionPane.INFORMATION_MESSAGE);
                 return conta;
             }
         }
         
-        JOptionPane.showMessageDialog(null, "Conta não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);
         return null;
     }
 
@@ -51,14 +48,14 @@ public class BancoService {
         for(ContaCorrente conta : contasCorrentes){
             infos.append("Número: ").append(conta.getNumeroConta()).append("\n");
             infos.append("Titular: ").append(conta.getTitular().getNome()).append("\n");
-            infos.append("Saldo: ").append(conta.getSaldo()).append("\n\n");
+            infos.append("Saldo: R$").append(String.format("%.2f", conta.getSaldo())).append("\n\n");
         }
 
         infos.append("Conta Poupança:\n\n");
         for(ContaPoupanca conta : contasPoupanca){
             infos.append("Número: ").append(conta.getNumeroConta()).append("\n");
             infos.append("Titular: ").append(conta.getTitular().getNome()).append("\n");
-            infos.append("Saldo: ").append(conta.getSaldo()).append("\n\n");
+            infos.append("Saldo: R$").append(String.format("%.2f", conta.getSaldo())).append("\n\n");
         }
 
         JOptionPane.showMessageDialog(null, infos.toString(), "Contas", JOptionPane.INFORMATION_MESSAGE);
@@ -99,6 +96,6 @@ public class BancoService {
                 contaMenor = cp;
             }
         }
-            JOptionPane.showMessageDialog(null, "------- Relatório -------\n\n" + "Nº de Contas Correntes: " + contasCorrentes.size() + "\nNº de Contas Poupanças: " + contasPoupanca.size() + "\nPatrimônio total: " + calcularPatrimonioTotal() + "\nMaior saldo: " + contaMaior.getTitular().getNome() + "\nMenor saldo: " + contaMenor.getTitular().getNome());
+            JOptionPane.showMessageDialog(null, "------- Relatório -------\n\n" + "Nº de Contas Correntes: " + contasCorrentes.size() + "\nNº de Contas Poupanças: " + contasPoupanca.size() + "\nPatrimônio total: R$" + String.format("%.2f", calcularPatrimonioTotal()) + "\nMaior saldo: " + contaMaior.getTitular().getNome() + "; " + contaMaior.getNumeroConta() + "; R$" + String.format("%.2f", contaMaior.getSaldo()) + "\nMenor saldo: " + contaMenor.getTitular().getNome() + "; " + contaMenor.getNumeroConta() + "; R$" + String.format("%.2f", contaMenor.getSaldo()));
         }
 }

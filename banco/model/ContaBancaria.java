@@ -2,6 +2,7 @@ package banco.model;
 
 import java.util.ArrayList;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import banco.interfaces.Operavel;
 
@@ -19,17 +20,27 @@ public abstract class ContaBancaria implements Operavel {
     }
 
     public void depositar(double valor){
-        String horario = LocalDateTime.now().toString();
-        this.saldo += valor;
-        this.historico.add(horario + " - Valor depositado: " + valor);
+        String horario = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss"));
+
+        if(valor > 0){
+            this.saldo += valor;
+            this.historico.add(horario + " - Depósito: R$" + String.format("%.2f", valor) + "\n");
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, insira um valor válido!", "Erro de operação", JOptionPane.ERROR_MESSAGE);
+            }
     }
 
     public boolean sacar(double valor){
         if(this.saldo >= valor){
-            String horario = LocalDateTime.now().toString();
-            this.saldo -= valor;
-            this.historico.add(horario + " - Valor retirado: " + valor);
-            return true;
+            if(valor > 0){
+                String horario = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss"));
+                this.saldo -= valor;
+                this.historico.add(horario + " - Saque: R$" + String.format("%.2f", valor) + "\n");
+                return true;
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor, insira um valor válido!", "Erro de operação", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Saldo insuficiente. Verifique seu saldo e tente novamente", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
@@ -42,7 +53,7 @@ public abstract class ContaBancaria implements Operavel {
     }
 
     protected void registrarTransacao(String descricao){
-        String horario = LocalDateTime.now().toString();
+        String horario = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss"));
         this.historico.add(horario + " - " + descricao + "\n");
     }
 

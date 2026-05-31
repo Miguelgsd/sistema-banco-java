@@ -17,7 +17,7 @@ public class ContaPoupanca extends ContaBancaria {
     public void aplicarRendimento(){
         double rendimento = calcularRendimento();
         setSaldo(getSaldo() + rendimento);
-        registrarTransacao("Rendimento aplicado ao saldo: " + rendimento);
+        registrarTransacao("Rendimento aplicado ao saldo: R$" + String.format("%.2f", rendimento));
     }
 
     @Override
@@ -29,6 +29,15 @@ public class ContaPoupanca extends ContaBancaria {
             titularNome = "Não definido";
         }
 
-        JOptionPane.showMessageDialog(null, "--------- Extrato ----------\n\n" + "Titular: " + titularNome + "\nNúmero: " + getNumeroConta() + "\nSaldo: " + getSaldo() + "\nTaxa de rendimento: " + this.taxaRendimentoMensal + "\nRendimento estimado: " + calcularRendimento() + "\nHistórico: \n" + getHistorico(), "Extrato da Poupança", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null,
+            "--------- Extrato ----------\n\n" +
+            "Titular: " + titularNome + "\n" +
+            "Número: " + getNumeroConta() + "\n" +
+            "Saldo: R$" + String.format("%.2f", getSaldo()) + "\n" +
+            "Taxa de rendimento: " + this.taxaRendimentoMensal + "\n" +
+            "Rendimento estimado: R$" + String.format("%.2f", calcularRendimento()) + "\n" +
+            "Histórico: \n" + getHistorico(),
+            "Extrato da Poupança",
+            JOptionPane.INFORMATION_MESSAGE);
     }
 }
