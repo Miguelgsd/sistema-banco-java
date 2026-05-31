@@ -31,7 +31,7 @@ public class ContaPoupanca extends ContaBancaria {
 
         JOptionPane.showMessageDialog(null,
             "--------- Extrato ----------\n\n" +
-            "Titular: " + titularNome + "\n" +
+            "Titular:" + titularNome + "\n" +
             "Número: " + getNumeroConta() + "\n" +
             "Saldo: R$" + String.format("%.2f", getSaldo()) + "\n" +
             "Taxa de rendimento: " + this.taxaRendimentoMensal + "\n" +

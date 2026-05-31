@@ -25,6 +25,7 @@ public abstract class ContaBancaria implements Operavel {
         if(valor > 0){
             this.saldo += valor;
             this.historico.add(horario + " - Depósito: R$" + String.format("%.2f", valor) + "\n");
+            JOptionPane.showMessageDialog(null, "Depósito realizado com sucesso!");
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, insira um valor válido!", "Erro de operação", JOptionPane.ERROR_MESSAGE);
             }
@@ -36,6 +37,7 @@ public abstract class ContaBancaria implements Operavel {
                 String horario = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss"));
                 this.saldo -= valor;
                 this.historico.add(horario + " - Saque: R$" + String.format("%.2f", valor) + "\n");
+                JOptionPane.showMessageDialog(null, "Saque realizado com sucesso!");
                 return true;
             } else {
                 JOptionPane.showMessageDialog(null, "Por favor, insira um valor válido!", "Erro de operação", JOptionPane.ERROR_MESSAGE);

@@ -77,7 +77,6 @@ public class SistemaBanco {
                     if (contaAuxiliar != null) {
                         double valor = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor a depositar:"));
                         contaAuxiliar.depositar(valor);
-                        JOptionPane.showMessageDialog(null, "Depósito realizado com sucesso!");
                     } else {JOptionPane.showMessageDialog(null, "Conta não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);}
                     break;
 
@@ -88,7 +87,6 @@ public class SistemaBanco {
                     if (contaAuxiliar != null) {
                         double valor = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor para sacar:"));
                         contaAuxiliar.sacar(valor);
-                        JOptionPane.showMessageDialog(null, "Saque realizado com sucesso!");
                     } else {JOptionPane.showMessageDialog(null, "Conta não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);}
                     break;
 
